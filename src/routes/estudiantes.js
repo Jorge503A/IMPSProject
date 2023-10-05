@@ -17,6 +17,23 @@ router.get('/agregar', async(request, response) => {
     response.render('estudiantes/agregar', {lstCarreras});
 });
 
+// Endpoint que permite mostrar el formulario para Actualizar un nuevo estudiante
+router.get('/actualizar', async (request, response) => {
+    // Recupera los parámetros de la URL utilizando request.query
+    const idestudiante = request.query.idestudiante;
+    const nombre = request.query.nombre;
+    const apellido = request.query.apellido;
+    const email = request.query.email;
+    const usuario = request.query.usuario;
+    const idcarrera = request.query.idcarrera;
+    // Obtén la lista de carreras (supongo que esta parte está funcionando correctamente)
+    const lstCarreras = await carrerasQuery.obtenerTodosLasCarreras();
+    const lstCarreraPrincipal = await carrerasQuery.obtenerTCarreraEspecifica(idcarrera);
+    // Renderiza el formulario con los datos recuperados
+    response.render('estudiantes/actualizar', { lstCarreras, idestudiante, nombre, apellido, email, usuario, lstCarreraPrincipal,idcarrera });
+});
+
+
 // Endpoint para agregar un estudiante
 router.post('/agregar', async(request, response) => {
     // Falta agregar logica
@@ -25,6 +42,19 @@ router.post('/agregar', async(request, response) => {
 
     const resultado = await queries.insertarEstudiante(nuevoEstudiante);
 
+    response.redirect('/estudiantes');
+});
+
+// Endpoint para actualizar un estudiante
+router.post('/actualizar', async(request, response) => {
+    // Falta agregar logica
+    const idestudiante = request.body.idestudiante
+    const nombre = request.body.nombre;
+    const apellido = request.body.apellido;
+    const email = request.body.email
+    const usuario = request.body.usuario;
+    const idcarrera = request.body.idcarrera;
+    const resultado = await queries.actualizarEstudiante(nombre,apellido,email,idcarrera,usuario,idestudiante);
     response.redirect('/estudiantes');
 });
 

@@ -12,6 +12,15 @@ module.exports = {
         }
     },
 
+    obtenerTCarreraEspecifica: async(idcarrera) => {
+        try {
+            const result = await pool.query('SELECT * FROM carreras ORDER BY (idcarrera = ?) DESC, idcarrera',[idcarrera]);
+            return result;
+        } catch (error) {
+            console.error('Ocurrio un problema al consultar la lista de carreras: ', error);
+        }
+    }
+
     // Eliminar un estudiante
     /*eliminarEstudiante: async(idestudiante) => {
         try{

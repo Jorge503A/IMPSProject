@@ -31,6 +31,22 @@ module.exports = {
         }catch(error){
           console.error('Erro al eliminar el registro', error);
         }
+    },
+
+    //actualizar Estudiante
+    actualizarEstudiante: async (nombre, apellido, email, idcarrera, usuario, idestudiante) => {
+      try {
+        const result = await pool.query(
+          "UPDATE estudiantes SET nombre = ?, apellido = ?, email = ?, idcarrera = ?, usuario = ? WHERE idestudiante = ?;",
+          [nombre, apellido, email, idcarrera, usuario, idestudiante]
+        );
+        // La propiedad "insertId" no es relevante para actualizaciones, puedes devolver un mensaje de éxito u otra información necesaria aquí.
+        return "Registro actualizado exitosamente";
+      } catch (error) {
+        console.error('Error al actualizar el registro', error);
+        throw error; // Puedes propagar el error para manejarlo más arriba si es necesario.
+      }
     }
+    
 }
 
