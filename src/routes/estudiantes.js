@@ -6,7 +6,6 @@ const carrerasQuery = require('../repositories/CarreraRepository');
 // Endpoint para mostrar todos los estudiantes
 router.get('/', async (request, response) => {
     const estudiantes = await queries.obtenerTodosLosEstudiantes();
-
      response.render('estudiantes/listado', {estudiantes}); // Mostramos el listado de estudiantes
 });
 
