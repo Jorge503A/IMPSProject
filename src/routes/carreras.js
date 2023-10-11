@@ -3,7 +3,7 @@ const router = express.Router();
 const queries = require('../repositories/EstudianteRepository');
 const carrerasQuery = require('../repositories/CarreraRepository');
 
-// Endpoint para mostrar todos los estudiantes
+// Endpoint para mostrar todos las carrera
 router.get('/', async (request, response) => {
     const carreras = await carrerasQuery.obtenerTodosLasCarreras();
      response.render('carreras/listadoCarrera', {carreras}); // Mostramos el listado de estudiantes
