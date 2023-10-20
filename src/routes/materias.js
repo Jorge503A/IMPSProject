@@ -27,10 +27,9 @@ router.get('/actualizar', async (request, response) => {
 // Endpoint para agregar una carrera
 router.post('/agregar', async(request, response) => {
     // Falta agregar logica
-    const idmateria = request.body.idmateria;
     const materia = request.body.materia;
 
-    const resultado = await materiasQuery.insertarMateria(idmateria,materia);
+    const resultado = await materiasQuery.insertarMateria(materia);
 
     response.redirect('/materias');
 });

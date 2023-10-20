@@ -23,10 +23,10 @@ module.exports = {
     },
 
     // Insertar un estudiante
-     insertarProfesor: async(idprofesor,nombre,apellido,email,telefono,usuario) => {
+     insertarProfesor: async(nombre,apellido,fecha_nacimiento,profesion,genero,email) => {
         try{
-          const result = await pool.query("insert into profesores(idprofesor,nombre,apellido,email,telefono,usuario) values(?,?,?,?,?,?);", 
-          [idprofesor,nombre,apellido,email,telefono,usuario]);
+          const result = await pool.query("insert into profesores(nombre,apellido,fecha_nacimiento,profesion,genero,email) values(?,?,?,?,?,?);", 
+          [nombre,apellido,fecha_nacimiento,profesion,genero,email]);
           return result.insertId;
 
         }catch(error){
@@ -35,11 +35,11 @@ module.exports = {
     },
 
     //actualizar Estudiante
-    actualizarProfesores: async (nombre, apellido, email, telefono, usuario,idprofesor) => {
+    actualizarProfesores: async (nombre, apellido, fecha_nacimiento, profesion, genero,email,idprofesor) => {
       try {
         const result = await pool.query(
-          "UPDATE profesores SET nombre = ?, apellido = ?, email = ?, telefono = ?, usuario = ? WHERE idprofesor = ?;",
-          [nombre, apellido, email, telefono, usuario, idprofesor]
+          "UPDATE profesores SET nombre = ?, apellido = ?, fecha_nacimiento = ?, profesion = ?, genero = ?, email= ? WHERE idprofesor = ?;",
+          [nombre, apellido, fecha_nacimiento, profesion, genero, email,idprofesor]
         );
         // La propiedad "insertId" no es relevante para actualizaciones, puedes devolver un mensaje de éxito u otra información necesaria aquí.
         return "Registro actualizado exitosamente";

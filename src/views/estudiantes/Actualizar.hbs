@@ -19,9 +19,10 @@
             </div>
             <div class="form-group">
                 <select class="form-control" name="idcarrera">
-                    {{#each lstCarreraPrincipal}}
-                    <option value="{{idcarrera}}">{{carrera}}</option>
-                     {{/each}}
+                    {{#each lstCarreras}}
+                        <option value="{{idcarrera}}" {{#eq idcarrera ../idcarrera}}selected{{/eq}}>
+                            {{carrera}}</option>
+                    {{/each}}
                 </select>
             </div>
             <div class="form-group">

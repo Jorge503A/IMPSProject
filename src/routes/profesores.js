@@ -23,24 +23,25 @@ router.get('/actualizar', async (request, response) => {
     const idprofesor = request.query.idprofesor;
     const nombre = request.query.nombre;
     const apellido = request.query.apellido;
+    const fecha_nacimiento = request.query.fecha_nacimiento;
+    const profesion = request.query.profesion;
+    const genero = request.query.genero;
     const email = request.query.email;
-    const telefono = request.query.telefono;
-    const usuario = request.query.usuario;
     // Renderiza el formulario con los datos recuperados
-    response.render('profesores/actualizar', { idprofesor, nombre, apellido, email, usuario, telefono });
+    response.render('profesores/actualizar', { idprofesor, nombre, apellido,fecha_nacimiento,profesion,genero, email,});
 });
 
 
 // Endpoint para agregar un estudiante
 router.post('/agregar', async(request, response) => {
     // Falta agregar logica
-    const idprofesor = request.body.idprofesor;
     const nombre = request.body.nombre;
     const apellido = request.body.apellido;
+    const fecha_nacimiento = request.body.fecha_nacimiento;
+    const profesion = request.body.profesion;
+    const genero = request.body.genero;
     const email = request.body.email;
-    const telefono = request.body.telefono;
-    const usuario = request.body.usuario;
-    const resultado = await ProfesoresQuery.insertarProfesor(idprofesor,nombre,apellido,email,telefono,usuario);
+    const resultado = await ProfesoresQuery.insertarProfesor(nombre,apellido,fecha_nacimiento,profesion,genero,email);
 
     response.redirect('/profesores');
 });
@@ -51,10 +52,11 @@ router.post('/actualizar', async(request, response) => {
     const idprofesor = request.body.idprofesor;
     const nombre = request.body.nombre;
     const apellido = request.body.apellido;
+    const fecha_nacimiento = request.body.fecha_nacimiento;
+    const profesion = request.body.profesion;
+    const genero = request.body.genero;
     const email = request.body.email
-    const telefono = request.body.telefono;
-    const usuario = request.body.usuario;
-    const resultado = await ProfesoresQuery.actualizarProfesores(nombre,apellido,email,telefono,usuario,idprofesor);
+    const resultado = await ProfesoresQuery.actualizarProfesores(nombre,apellido,fecha_nacimiento,profesion,genero,email,idprofesor);
     response.redirect('/profesores');
 });
 

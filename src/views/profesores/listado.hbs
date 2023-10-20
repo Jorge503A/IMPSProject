@@ -16,9 +16,10 @@
                 <th scope="col">ID</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
+                <th scope="col">Fecha Nacimiento</th>
+                <th scope="col">profesion</th>
+                <th scope="col">Genero</th>
                 <th scope="col">Email</th>
-                <th scope="col">Telefono</th>
-                <th scope="col">Usuario</th>
                 <th scope="col">Opciones</th>
             </tr>
         </thead>
@@ -28,11 +29,12 @@
                 <th scope="row">{{idprofesor}}</th>
                 <td>{{nombre}}</td>
                 <td>{{apellido}}</td>
+                <td>{{formatDate fecha_nacimiento "DD/MM/YYYY"}}</td>
+                <td>{{profesion}}</td>
+                <td>{{genero}}</td>
                 <td>{{email}}</td>
-                <td>{{telefono}}</td>
-                <td>{{usuario}}</td>
                 <td>
-                    <a href="/profesores/actualizar?idprofesor={{idprofesor}}&nombre={{nombre}}&apellido={{apellido}}&email={{email}}&telefono={{telefono}}&usuario={{usuario}}" class="btn btn-primary text-white">Modificar</a>
+                    <a href="/profesores/actualizar?idprofesor={{idprofesor}}&nombre={{nombre}}&apellido={{apellido}}&fecha_nacimiento={{fecha_nacimiento}}&profesion={{profesion}}&genero={{genero}}&email={{email}}" class="btn btn-primary text-white">Modificar</a>
                     <a href="/profesores/eliminar/{{idprofesor}}" class="btn btn-danger text-white">Eliminar</a>
                 </td>
             </tr>

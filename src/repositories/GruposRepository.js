@@ -3,9 +3,9 @@ const pool = require('../config/databaseController');
 module.exports = {
 
     // Consulta para obtener todos las carreras
-    obtenerTodasMaterias: async() => {
+    obtenerTodosLosGrupos: async() => {
         try {
-            const result = await pool.query('SELECT * FROM materias');
+            const result = await pool.query('Select g.idgrupo,g.num_grupo,g.anio,g.ciclo,g.idmateria,m.materia,g.idprofesor,concat(p.nombre," ",p.apellido)Profesor From grupos g, materias m, profesores p where g.idmateria = m.idmateria and g.idprofesor = p.idprofesor;');
             return result;
         } catch (error) {
             console.error('Ocurrio un problema al consultar la lista de carreras: ', error);
@@ -13,9 +13,10 @@ module.exports = {
     },
 
     // Insertar una materia
-    insertarMateria: async(materia) => {
+    insertarGrupo: async(num_grupo,anio,ciclo,idmateria,idprofesor) => {
         try{
-          const result = await pool.query("insert into materias(materia) values(?);", [materia]);
+          const result = await pool.query("insert into grupos(num_grupo,anio,ciclo,idmateria,idprofesor) values(?,?,?,?,?);"
+          , [num_grupo,anio,ciclo,idmateria,idprofesor]);
           return result.insertId;
 
         }catch(error){
@@ -24,20 +25,20 @@ module.exports = {
     },
 
     //Eliminar una materia
-    eliminarMateria: async(idmateria) => {
+    eliminarGrupo: async(idgrupo) => {
         try{
-          const result = await pool.query('DELETE FROM materias WHERE idmateria = ?', [idmateria]);
+          const result = await pool.query('DELETE FROM grupos WHERE idgrupo = ?', [idgrupo]);
           return result.affectedRows > 0;
         }catch(error){
           console.error('Erro al eliminar el registro', error);
         }
     },
 
-    actualizarMateria: async (materia,idmateria) => {
+    actualizarGrupo: async (num_grupo,anio,ciclo,idmateria,idprofesor,idgrupo) => {
         try {
           const result = await pool.query(
-            "update materias set materia = ? where idmateria = ?;",
-            [materia,idmateria]
+            "update grupos set num_grupo= ?, anio= ?, ciclo= ?, idmateria= ?,idprofesor =?  where idgrupo=?;",
+            [num_grupo,anio,ciclo,idmateria,idprofesor,idgrupo]
           );
           // La propiedad "insertId" no es relevante para actualizaciones, puedes devolver un mensaje de éxito u otra información necesaria aquí.
           return "Registro actualizado exitosamente";
