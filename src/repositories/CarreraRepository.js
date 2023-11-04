@@ -25,7 +25,7 @@ module.exports = {
     insertarCarrera: async(idcarrera,carrera) => {
         try{
           const result = await pool.query("insert into carreras(idcarrera, carrera) values(?,?);", [idcarrera,carrera]);
-          return result.insertId;
+          return result.affectedRows > 0;
 
         }catch(error){
           console.error('Erro al eliminar el registro', error);

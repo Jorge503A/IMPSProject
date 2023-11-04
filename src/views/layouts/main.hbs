@@ -13,6 +13,7 @@
 </head>
 <body>
     {{> navigation }}
+    {{> message }}
     {{{ body }}} <!-- esta es sintaxis propia de handlebars, indica que solo el codigo en esta seccion sera dinamico -->
     {{!-- SCRIPTS --}}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -29,6 +30,13 @@
     integrity="sha384-
     ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
+
+    {{!-- Este script nos permite manejar la asignacion de los grupos --}}
+    <script src="/js/asignarGrupo.js"></script>
+    <script src="/js/ajax.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/manejoAlertas.js"></script>
+
 </body>
 </html>
 

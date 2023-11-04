@@ -48,8 +48,11 @@ router.get('/eliminar/:idmateria', async(request, response) => {
     // Desestructuramos el objeto que nos mandan en la peticion y extraemos el idestudiante
     const idmateria = request.params.idmateria;
     const resultado = await materiasQuery.eliminarMateria(idmateria);
-    if(resultado > 0){
-        console.log('Eliminado con éxito');
+
+    if(resultado){
+        request.flash('success', 'Eliminacion correcta');
+    } else {
+        request.flash('error', 'Error al eliminar');
     }
     response.redirect('/materias');
 });
