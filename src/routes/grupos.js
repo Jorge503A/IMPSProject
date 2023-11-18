@@ -6,6 +6,7 @@ const ProfesoresQuery = require('../repositories/ProfesoresRepository');
 const materiasQuery = require('../repositories/MateriasRepository');
 const GruposQuery = require('../repositories/GruposRepository');
 const estudiantesQuery = require('../repositories/EstudianteRepository');
+const GEsQuery = require('../repositories/GrupoEstudiantes');
 const { isLoggedIn } = require('../lib/auth');
 
 // Endpoint para mostrar todos los estudiantes
@@ -89,11 +90,12 @@ router.get('/eliminar/:idgrupo',isLoggedIn, async(request, response) => {
 
 // Enpoint que permite navegar a la pantalla para asignar un grupo
 router.get('/asignargrupo/:idgrupo',isLoggedIn, async (request, reponse) => {
+    const GrupoEstudiantes = await GEsQuery.obtenerTodosLosGruposEstudiantes();
     const { idgrupo } = request.params;
     // Consultamos el listado de estudiantes disponible
     const lstEstudiantes = await estudiantesQuery.obtenerTodosLosEstudiantes();
   
-    reponse.render('grupos/asignargrupo', { lstEstudiantes, idgrupo });
+    reponse.render('grupos/asignargrupo', { lstEstudiantes, idgrupo,GrupoEstudiantes });
   });
   
   
@@ -105,19 +107,31 @@ router.get('/asignargrupo/:idgrupo',isLoggedIn, async (request, reponse) => {
     let resultado = null;
   
     const result = processDataFromForm(data);
+    let exito = 0;
+    let error = 0;
+
   
     for (const tmp of result.grupo_estudiantes) {
-      //const asignacion = [tmp.idgrupo, tmp.idestudiante];
-      //const { idgrupo, idestudiante } = tmp;
-      //const asignacionObj = {idgrupo, idestudiante};
+      const asignacion = [tmp.idgrupo, tmp.idestudiante];
+      const { idgrupo, idestudiante } = tmp;
+      const asignacionObj = {idgrupo, idestudiante};
   
-      resultado = await queries.asignarGrupo(tmp);
+      resultado = await GEsQuery.asignarGrupo(tmp);
+
+      if(resultado){
+        exito++;
+      }
+      else{
+        error++
+      }
     }
   
-    if (resultado) {
-      request.flash('success', 'Asignacion de grupo realizada con exito');
-    } else {
-      request.flash('error', 'Ocurrio un problema al realizar asignacion');
+    if (exito>0) {
+      request.flash('success', 'Se realizaron asignaciones al grupo');
+    }
+
+    if(error>0){
+      request.flash('error', 'Ocurrieron problemas al asignaciones al grupo');
     }
   
     response.redirect('/grupos');
